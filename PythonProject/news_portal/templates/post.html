@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+<!-- Название у нас будет Product -->
+{% block title %}
+Отдельный пост
+{% endblock title %}
+
+<!-- В контенте на странице мы выводим сам товар, идентификатор которого был передан в url -->
+
+{% block content %}
+
+<h1>{{ single_post }}</h1>
+<h3>{{ time_now|date:'d M Y' }}</h3>
+{{ single_post.post_content }}
+
+{% endblock content %}
