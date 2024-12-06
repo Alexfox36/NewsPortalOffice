@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load custom_filters %}
+{% load custom_tags %}
+
+{% block title %}
+Все новости
+{% endblock title %}
+
+{% block content %}
+<br/>
+<h1> Все новости </h1>
+{{ time_now|date:'d M Y' }}
+<div class="contaiter">
+    <div class="row", style="margin-top:50px;">
+        {% for post in posts_list %}
+        <div class="col-sm">
+            <div class="card border-secondary md-3" style="max-width: 20rem;">
+                <div class="card-header"><h3>{{post.post_title|censor }}</h3>   {{ time_now|date:'M d Y' }}</div>
+                <div class="card-body">
+                    <h4 class="card-title">{{post.post_author}}</h4>
+                    <p class="card-text">{{post.post_content|truncatewords:20|censor  }}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock content %}
