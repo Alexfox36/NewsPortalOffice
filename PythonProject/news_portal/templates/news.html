@@ -7,6 +7,10 @@
 {% endblock title %}
 
 {% block content %}
+ <form class="d-flex" action="" method="get">
+            {{ filterset.form.as_p }}
+            <button class="btn btn-secondary my-2 my-sm-0" type="submit">Найти</button>
+          </form>
 <br/>
 <h1> Все новости </h1>
 {{ time_now|date:'d M Y' }}
@@ -19,11 +23,37 @@
                 <div class="card-body">
                     <h4 class="card-title">{{post.post_author}}</h4>
                     <p class="card-text">{{post.post_content|truncatewords:20|censor  }}</p>
+                    <label for="start">Дата публикации:</label>
+                    <input type="date" id="start" name="trip-start" value="2018-07-22"  />
                 </div>
             </div>
         </div>
         {% endfor %}
     </div>
 </div>
+
+
+ {# Добавляем пагинацию на страницу #}
+
+   {# Информация о предыдущих страницах #}
+   {% if page_obj.has_previous %}
+       <a href="?{% url_replace page=1 %}">1</a>
+       {% if page_obj.previous_page_number != 1 %}
+           ...
+           <a href="?{% url_replace page=page_obj.previous_page_number %}">{{ page_obj.previous_page_number }}</a>
+       {% endif %}
+   {% endif %}
+
+   {# Информация о текущей странице #}
+   {{ page_obj.number }}
+
+   {# Информация о следующих страницах #}
+   {% if page_obj.has_next %}
+       <a href="?{% url_replace page=page_obj.next_page_number %}">{{ page_obj.next_page_number }}</a>
+       {% if paginator.num_pages != page_obj.next_page_number %}
+           ...
+           <a href="?{% url_replace page=page_obj.paginator.num_pages %}">{{ page_obj.paginator.num_pages }}</a>
+       {% endif %}
+   {% endif %}
 
 {% endblock content %}
