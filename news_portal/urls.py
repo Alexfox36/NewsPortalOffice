@@ -26,6 +26,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('protect.urls')),
     path('sign/', include('sign.urls')),
+    path('accounts/', include('allauth.urls')),
 
     path('news/', PostsList.as_view(), name='post_list'),
     path('news/<int:pk>', PostsDetail.as_view(), name='post_detail'),
